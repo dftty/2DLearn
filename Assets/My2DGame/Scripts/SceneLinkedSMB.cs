@@ -28,6 +28,7 @@ namespace Lessice
         public sealed override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex, UnityEngine.Animations.AnimatorControllerPlayable controller)
         {
             m_FirstFrameHappened = false;
+            OnSLStateEnter(animator, stateInfo, layerIndex);
         }
 
         public sealed override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex, UnityEngine.Animations.AnimatorControllerPlayable controller)
@@ -37,14 +38,64 @@ namespace Lessice
                 return ;
             }
 
+            if(animator.IsInTransition(layerIndex) && animator.GetNextAnimatorStateInfo(layerIndex).fullPathHash == stateInfo.fullPathHash)
+            {
+                OnSLStateTransitionToUpdate(animator, stateInfo, layerIndex);
+            }
 
+            if(!animator.IsInTransition(layerIndex) && !m_FirstFrameHappened)
+            {
+                m_FirstFrameHappened = true;
+                OnSLStatePostEnter(animator, stateInfo, layerIndex);
+            }
+
+            if(!animator.IsInTransition(layerIndex) && m_FirstFrameHappened){
+                OnSLStateNoTransitionUpdate(animator, stateInfo, layerIndex);
+            }
+
+            if(animator.IsInTransition(layerIndex) && !m_LastFrameHappened && m_FirstFrameHappened)
+            {
+                m_LastFrameHappened = true;
+                OnSLStatePreExit(animator, stateInfo, layerIndex);
+            }
+
+
+            if(animator.IsInTransition(layerIndex) && animator.GetCurrentAnimatorStateInfo(layerIndex).fullPathHash == stateInfo.fullPathHash)
+            {
+                OnSLStateTransitionFromUpdate(animator, stateInfo, layerIndex);
+            }
         }
 
         public sealed override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex, UnityEngine.Animations.AnimatorControllerPlayable controller)
         {
             m_LastFrameHappened = false;
-            
+            OnSLStateExit(animator, stateInfo, layerIndex);
         }
+
+        /// <summary>
+        /// 在Start方法中调用
+        /// </summary>
+        public virtual void OnStart(){}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="animator"></param>
+        /// <param name="stateInfo"></param>
+        /// <param name="layerIndex"></param>
+        public virtual void OnSLStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {}
+        
+        public virtual void OnSLStatePostEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
+
+        public virtual void OnSLStateNoTransitionUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
+
+        public virtual void OnSLStateTransitionToUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
+
+        public virtual void OnSLStateTransitionFromUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
+
+        public virtual void OnSLStatePreExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
+
+        public virtual void OnSLStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
 
 
     }
