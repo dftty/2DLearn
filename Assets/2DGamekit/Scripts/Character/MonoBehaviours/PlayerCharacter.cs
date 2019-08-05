@@ -313,8 +313,8 @@ namespace Gamekit2D
 
         protected void SpawnBullet()
         {
-            //we check if there is a wall between the player and the bullet spawn position, if there is, we don't spawn a bullet
-            //otherwise, the player can "shoot throught wall" because the arm extend to the other side of the wall
+            // we check if there is a wall between the player and the bullet spawn position, if there is, we don't spawn a bullet
+            // otherwise, the player can "shoot throught wall" because the arm extend to the other side of the wall
             Vector2 testPosition = transform.position;
             testPosition.y = m_CurrentBulletSpawnPoint.position.y;
             Vector2 direction = (Vector2)m_CurrentBulletSpawnPoint.position - testPosition;
@@ -604,7 +604,6 @@ namespace Gamekit2D
                     StartCoroutine(FallThroughtInvincibility());
                 }
             }
-
             return fallthroughColliderCount == colliderCount;
         }
 

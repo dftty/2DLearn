@@ -40,7 +40,7 @@ namespace Lessice
 
             if(animator.IsInTransition(layerIndex) && animator.GetNextAnimatorStateInfo(layerIndex).fullPathHash == stateInfo.fullPathHash)
             {
-                OnSLStateTransitionToUpdate(animator, stateInfo, layerIndex);
+                OnSLTransitionToStateUpdate(animator, stateInfo, layerIndex);
             }
 
             if(!animator.IsInTransition(layerIndex) && !m_FirstFrameHappened)
@@ -62,7 +62,7 @@ namespace Lessice
 
             if(animator.IsInTransition(layerIndex) && animator.GetCurrentAnimatorStateInfo(layerIndex).fullPathHash == stateInfo.fullPathHash)
             {
-                OnSLStateTransitionFromUpdate(animator, stateInfo, layerIndex);
+                OnSLTransitionFromStateUpdate(animator, stateInfo, layerIndex);
             }
         }
 
@@ -89,9 +89,9 @@ namespace Lessice
 
         public virtual void OnSLStateNoTransitionUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
 
-        public virtual void OnSLStateTransitionToUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
+        public virtual void OnSLTransitionToStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
 
-        public virtual void OnSLStateTransitionFromUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
+        public virtual void OnSLTransitionFromStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
 
         public virtual void OnSLStatePreExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){}
 

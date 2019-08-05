@@ -14,6 +14,8 @@ namespace Gamekit2D
             m_MonoBehaviour.AirborneVerticalMovement();
             m_MonoBehaviour.CheckForGrounded();
             m_MonoBehaviour.CheckForHoldingGun();
+            if (m_MonoBehaviour.CheckForJumpInput ())
+                m_MonoBehaviour.SetVerticalMovement(m_MonoBehaviour.jumpSpeed);
             if(m_MonoBehaviour.CheckForMeleeAttackInput())
                 m_MonoBehaviour.MeleeAttack ();
             m_MonoBehaviour.CheckAndFireGun ();

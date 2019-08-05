@@ -51,7 +51,6 @@ namespace Gamekit2D
             m_PreviousPosition = m_Rigidbody2D.position;
             m_CurrentPosition = m_PreviousPosition + m_NextMovement;
             Velocity = (m_CurrentPosition - m_PreviousPosition) / Time.deltaTime;
-
             m_Rigidbody2D.MovePosition(m_CurrentPosition);
             m_NextMovement = Vector2.zero;
 
@@ -59,12 +58,15 @@ namespace Gamekit2D
             CheckCapsuleEndCollisions(false);
         }
 
+
+
         /// <summary>
         /// This moves a rigidbody and so should only be called from FixedUpdate or other Physics messages.
         /// </summary>
         /// <param name="movement">The amount moved in global coordinates relative to the rigidbody2D's position.</param>
         public void Move(Vector2 movement)
         {
+            
             m_NextMovement += movement;
         }
 
@@ -139,7 +141,6 @@ namespace Gamekit2D
             for (int i = 0; i < m_RaycastPositions.Length; i++)
             {
                 int count = Physics2D.Raycast(m_RaycastPositions[i], raycastDirection, m_ContactFilter, m_HitBuffer, raycastDistance);
-
                 if (bottom)
                 {
                     m_FoundHits[i] = count > 0 ? m_HitBuffer[0] : new RaycastHit2D();
@@ -180,7 +181,6 @@ namespace Gamekit2D
                 {
                     groundNormal.Normalize();
                 }
-
                 Vector2 relativeVelocity = Velocity;
                 for (int i = 0; i < m_GroundColliders.Length; i++)
                 {
