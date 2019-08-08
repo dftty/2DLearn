@@ -25,6 +25,7 @@ namespace Gamekit2D
 
         public bool IsGrounded { get; protected set; }
         public bool IsCeilinged { get; protected set; }
+        public bool IsWalled {get; protected set;}
         public Vector2 Velocity { get; protected set; }
         public Rigidbody2D Rigidbody2D { get { return m_Rigidbody2D; } }
         public Collider2D[] GroundColliders { get { return m_GroundColliders; } }
